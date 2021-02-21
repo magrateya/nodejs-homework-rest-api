@@ -5,7 +5,7 @@ const schemaAddContact = Joi.object({
   email: Joi.string()
     .email({
       minDomainSegments: 2,
-      tlds: { allow: ['com', 'net'] },
+      tlds: { allow: ['com', 'net', 'ua'] },
     })
     .required(),
   phone: Joi.string()
@@ -18,7 +18,7 @@ const schemaUpdateContact = Joi.object({
   email: Joi.string()
     .email({
       minDomainSegments: 2,
-      tlds: { allow: ['com', 'net'] },
+      tlds: { allow: ['com', 'net', 'ua'] },
     })
     .optional(),
   phone: Joi.string()
@@ -28,12 +28,17 @@ const schemaUpdateContact = Joi.object({
 
 const validate = (schema, obj, next) => {
   const { error } = schema.validate(obj);
+  console.log(obj);
   if (error) {
     console.log(error);
     const [{ message }] = error.details;
+    const messageText =
+      Object.keys(obj).length === 0
+        ? 'Missing fields'
+        : `Field ${message.replace(/"/g, '')}`;
     return next({
       status: 400,
-      message: `Field ${message.replace(/"/g, '')}`,
+      message: messageText,
     });
   }
   next();

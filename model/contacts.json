@@ -55,15 +55,9 @@
   },
   {
     "id": "4196dd2a-6ce8-440e-b598-324fc34929f1",
-    "name": "Ann Smith",
-    "email": "ann1@mail.ua",
-    "phone": "(065) 2234567"
-  },
-  {
-    "id": "1acf05d0-105a-4383-a2d4-e8d0addd7935",
-    "name": "JoiSmith",
-    "email": "joi@mail.com",
-    "phone": "0658834567"
+    "name": "Poly Smith",
+    "email": "poly@mail.ua",
+    "phone": "065-2234567"
   },
   {
     "id": "3a28aaaf-8cb4-48a4-a69c-b5a9b43800a4",
