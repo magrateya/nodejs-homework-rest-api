@@ -1,11 +1,12 @@
-const Contacts = require('../model/index');
+const Contacts = require('../model/contacts');
+const { HttpCode } = require('../helpers/constants');
 
 const getAll = async (req, res, next) => {
   try {
     const contacts = await Contacts.listContacts();
     return res.json({
       status: 'Success',
-      code: 200,
+      code: HttpCode.OK,
       message: 'Contacts found',
       data: {
         contacts,
@@ -22,7 +23,7 @@ const getById = async (req, res, next) => {
     if (contact) {
       return res.json({
         status: 'Success',
-        code: 200,
+        code: HttpCode.OK,
         message: 'Contact found',
         data: {
           contact,
@@ -31,7 +32,7 @@ const getById = async (req, res, next) => {
     } else {
       return res.status(404).json({
         status: 'Error',
-        code: 404,
+        code: HttpCode.NOT_FOUND,
         message: 'Not Found',
       });
     }
@@ -45,7 +46,7 @@ const create = async (req, res, next) => {
     const contact = await Contacts.addContact(req.body);
     return res.status(201).json({
       status: 'Success',
-      code: 201,
+      code: HttpCode.CREATED,
       message: 'Contacts created',
       data: {
         contact,
@@ -62,7 +63,7 @@ const remove = async (req, res, next) => {
     if (contact) {
       return res.json({
         status: 'Success',
-        code: 200,
+        code: HttpCode.OK,
         message: 'Contact deleted',
         data: {
           contact,
@@ -71,7 +72,7 @@ const remove = async (req, res, next) => {
     } else {
       return res.status(404).json({
         status: 'Error',
-        code: 404,
+        code: HttpCode.NOT_FOUND,
         message: 'Not Found',
       });
     }
@@ -89,7 +90,7 @@ const update = async (req, res, next) => {
     if (contact) {
       return res.json({
         status: 'Success',
-        code: 200,
+        code: HttpCode.OK,
         message: 'Contact updated',
         data: {
           contact,
@@ -98,7 +99,7 @@ const update = async (req, res, next) => {
     } else {
       return res.status(404).json({
         status: 'Error',
-        code: 404,
+        code: HttpCode.NOT_FOUND,
         message: 'Not Found',
       });
     }
