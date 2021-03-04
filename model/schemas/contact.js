@@ -6,6 +6,8 @@ const contactSchema = new Schema(
     name: {
       type: String,
       required: [true, 'Set name'],
+      min: 2,
+      max: 20,
     },
     email: {
       type: String,
@@ -15,15 +17,6 @@ const contactSchema = new Schema(
       type: String,
       required: [true, 'Set phone'],
       unique: true,
-    },
-    subscription: {
-      type: String,
-      default: 'free',
-      enum: ['free', 'pro', 'premium'],
-    },
-    password: {
-      type: String,
-      default: 'password',
     },
     owner: {
       type: SchemaTypes.ObjectId,

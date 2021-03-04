@@ -31,9 +31,41 @@ const reg = async (req, res, next) => {
   }
 };
 
-const login = async (req, res, next) => {};
+const login = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+    const user = await Users.findByEmail(email);
+    const isPasswordValid = await user.validPassword(password);
+    if (!user || !isPasswordValid) {
+      return res.status(HttpCode.UNAUTHORIZED).json({
+        status: 'error',
+        code: HttpCode.UNAUTHORIZED,
+        data: 'Unauthorized',
+        message: 'Invalid credentals',
+      });
+    }
+    const id = user._id;
+    const payload = { id };
+    const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '4h' });
+    await Users.updateToken(id, token);
 
-const logout = async (req, res, next) => {};
+    return res.status(HttpCode.OK).json({
+      status: 'success',
+      code: HttpCode.OK,
+      data: {
+        token,
+      },
+    });
+  } catch (e) {
+    next(e);
+  }
+};
+
+const logout = async (req, res, next) => {
+  const id = req.user.id;
+  await Users.updateToken(id, null);
+  return res.status(HttpCode.NO_CONTENT).json({});
+};
 
 module.exports = {
   reg,
