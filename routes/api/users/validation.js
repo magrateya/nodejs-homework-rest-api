@@ -21,6 +21,10 @@ const schemaLoginUser = Joi.object({
   password: Joi.string().min(6).max(30).required(),
 });
 
+const schemaUpdateUserSub = Joi.object({
+  subscription: Joi.string().valid('free', 'pro', 'premium').required(),
+});
+
 const validate = (schema, obj, next) => {
   const { error } = schema.validate(obj);
   console.log(obj);
@@ -41,4 +45,8 @@ module.exports.registerUser = (req, res, next) => {
 
 module.exports.loginUser = (req, res, next) => {
   return validate(schemaLoginUser, req.body, next);
+};
+
+module.exports.updateUserSub = (req, res, next) => {
+  return validate(schemaUpdateUserSub, req.body, next);
 };

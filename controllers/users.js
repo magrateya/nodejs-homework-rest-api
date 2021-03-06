@@ -67,8 +67,46 @@ const logout = async (req, res, next) => {
   return res.status(HttpCode.NO_CONTENT).json({});
 };
 
+const currentUser = async (req, res, next) => {
+  try {
+    const userId = req.user.id;
+    const user = await Users.findById(userId);
+
+    return res.status(HttpCode.OK).json({
+      status: 'success',
+      code: HttpCode.OK,
+      data: {
+        email: user.email,
+        subscription: user.subscription,
+      },
+    });
+  } catch (e) {
+    next(e);
+  }
+};
+
+const changeSubscription = async (req, res, next) => {
+  try {
+    const userId = req.user.id;
+    const user = await Users.updateSubscription(userId, req.body);
+
+    return res.json({
+      status: 'Success',
+      code: HttpCode.OK,
+      message: 'Users subscription has just updated',
+      data: {
+        user,
+      },
+    });
+  } catch (e) {
+    next(e);
+  }
+};
+
 module.exports = {
   reg,
   login,
   logout,
+  currentUser,
+  changeSubscription,
 };
