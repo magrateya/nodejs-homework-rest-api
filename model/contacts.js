@@ -13,14 +13,22 @@ const listContacts = async (
         ...(sortBy ? { [`${sortBy}`]: 1 } : {}),
         ...(sortByDesc ? { [`${sortByDesc}`]: -1 } : {}),
       },
-      // select: { ...(sub ? { ['subscription']: `${sub}` } : '') },
       populate: {
         path: 'owner',
         select: 'email subscription -_id',
       },
     },
   );
+
   const { docs: contatcs, totalDocs: total } = results;
+
+  if (sub) {
+    const filteredContacts = contatcs.filter(
+      contact => contact.subscription === sub,
+    );
+    return { total: total.toString(), limit, page, filteredContacts };
+  }
+
   return { total: total.toString(), limit, page, contatcs };
 };
 

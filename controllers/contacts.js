@@ -50,7 +50,7 @@ const create = async (req, res, next) => {
     return res.status(201).json({
       status: 'Success',
       code: HttpCode.CREATED,
-      message: 'Contacts created',
+      message: 'Contact created',
       data: {
         contact,
       },
