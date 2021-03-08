@@ -11,6 +11,7 @@ const schemaAddContact = Joi.object({
   phone: Joi.string()
     .pattern(/[\d]{3}[-][\d]{7}/)
     .required(),
+  subscription: Joi.string().optional(),
 });
 
 const schemaUpdateContact = Joi.object({
@@ -24,6 +25,7 @@ const schemaUpdateContact = Joi.object({
   phone: Joi.string()
     .pattern(/[\d]{3}[-][\d]{7}/)
     .optional(),
+  subscription: Joi.string().optional(),
 });
 
 const validate = (schema, obj, next) => {
