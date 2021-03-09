@@ -4,8 +4,13 @@ const cors = require('cors');
 
 const contactsRouter = require('./routes/api/contacts');
 const usersRouter = require('./routes/api/users');
+const path = require('path');
+require('dotenv').config();
 
 const app = express();
+
+const USERS_AVATARS = process.env.USERS_AVATARS;
+app.use(express.static(path.join(__dirname, USERS_AVATARS)));
 
 const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short';
 
