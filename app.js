@@ -1,11 +1,11 @@
 const express = require('express');
 const logger = require('morgan');
 const cors = require('cors');
+const path = require('path');
+require('dotenv').config();
 
 const contactsRouter = require('./routes/api/contacts');
 const usersRouter = require('./routes/api/users');
-const path = require('path');
-require('dotenv').config();
 
 const app = express();
 

@@ -138,9 +138,13 @@ const saveAvatarToStatic = async req => {
   await createFolderIsExist(path.join(USERS_AVATARS, id));
   await fs.rename(pathFile, path.join(USERS_AVATARS, id, newNameAvatar));
   const avatarUrl = path.normalize(path.join(id, newNameAvatar));
+
   try {
-    await fs.unlink(path.join(process.cwd(), USERS_AVATARS, req.user.avatar));
+    await fs.unlink(
+      path.join(process.cwd(), USERS_AVATARS, req.user.avatarURL),
+    );
   } catch (e) {
+    console.log(e);
     console.log(e.message);
   }
   return avatarUrl;

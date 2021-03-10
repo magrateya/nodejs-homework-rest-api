@@ -25,11 +25,15 @@ const schemaUpdateUserSub = Joi.object({
   subscription: Joi.string().valid('free', 'pro', 'premium').required(),
 });
 
+// const schemaUpdate = Joi.object({
+//   subscription: Joi.any().meta({ swaggerType: 'file' }),
+// });
+
 const validate = (schema, obj, next) => {
   const { error } = schema.validate(obj);
   console.log(obj);
   if (error) {
-    console.log(error);
+    // console.log(error);
     const [{ message }] = error.details;
     return next({
       status: HttpCode.BAD_REQUEST,
@@ -50,6 +54,10 @@ module.exports.loginUser = (req, res, next) => {
 module.exports.updateUserSub = (req, res, next) => {
   return validate(schemaUpdateUserSub, req.body, next);
 };
+
+// module.exports.validateUploadAvatar = (req, res, next) => {
+//   return validate(schemaUpdate, req.body, next);
+// };
 
 module.exports.validateUploadAvatar = (req, res, next) => {
   if (!req.file) {

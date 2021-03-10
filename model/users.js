@@ -31,7 +31,7 @@ const updateSubscription = async (id, body) => {
 };
 
 const updateAvatar = async (id, avatar) => {
-  return await User.updateOne({ _id: id }, { avatar });
+  return await User.updateOne({ _id: id }, { avatarURL: avatar });
 };
 
 module.exports = {
