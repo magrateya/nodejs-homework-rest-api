@@ -9,8 +9,10 @@ const usersRouter = require('./routes/api/users');
 
 const app = express();
 
-const USERS_AVATARS = process.env.USERS_AVATARS;
-app.use(express.static(path.join(__dirname, USERS_AVATARS)));
+// const USERS_AVATARS = process.env.USERS_AVATARS;
+const PUBLIC_FOLDER = process.env.PUBLIC_FOLDER;
+app.use(express.static(path.join(__dirname, PUBLIC_FOLDER)));
+// app.use(express.static(__dirname + '/public'));
 
 const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short';
 
